@@ -22,17 +22,21 @@ def comprobar_archivos(archivo1, archivo2):
             contenido2 = file2.read()
 
         # Calcular el resumen SHA-256 del archivo1
-        resumen_sha256 = calcular_sha256(archivo1)
+        resumen_sha256_1 = calcular_sha256(archivo1)
+        resumen_sha256_2 = calcular_sha256(archivo2)
 
-        # Comprobar si el archivo2 comienza con el contenido de archivo1 y contiene el resumen
-        if contenido2.startswith(contenido1) and f"hex:{resumen_sha256}" in contenido2:
-            print(f"El archivo {archivo2} cumple con los criterios especificados.")
+        cumple_condicion = (contenido1.startswith(contenido2) and f"{resumen_sha256_2}" in contenido1) or \
+                           (contenido2.startswith(contenido1) and f"{resumen_sha256_1}" in contenido2)
+
+        if cumple_condicion:
+            return True
         else:
-            print(f"El archivo {archivo2} no cumple con los criterios especificados.")
+            return False
     except FileNotFoundError:
         print("Al menos uno de los archivos no se encontró.")
 
 if __name__ == "__main__":
     archivo1 = input("Ingrese el nombre del primer archivo de texto: ")
     archivo2 = input("Ingrese el nombre del segundo archivo de texto: ")
-    comprobar_archivos(archivo1, archivo2)
+    resultado = comprobar_archivos(archivo1, archivo2)
+    print(f"Los ficheros cumplen las condiciones: {resultado}")
