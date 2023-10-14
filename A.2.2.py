@@ -29,7 +29,7 @@ def agregar_resumen_al_archivo(entrada, salida):
             archivo_salida.write(contenido)
 
             # Agregar la línea con el resumen SHA-256
-            archivo_salida.write(f"\nhex:{resumen_sha256}")
+            archivo_salida.write(f"{resumen_sha256}")
 
         print(f"Se ha creado el archivo {salida} con el resumen SHA-256.")
     except FileNotFoundError:
